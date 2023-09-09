@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+</head>
+<body>
+<div class="form_signup">
+    <form action="ControllerServlet" method="post">
+        <input type="hidden" name="action" value="insert_account">
+
+        <label for="us"></label><br>
+        <input id="us" name="us" placeholder="Input your name account"><br>
+
+        <label for="pwd"></label><br>
+        <input id="pwd" name="pwd" type="password" placeholder="Input your new password"><br>
+
+        <label for="email"></label><br>
+        <input id="email" name="email" placeholder="Input your email" type="email"><br>
+
+        <label for="phone"></label><br>
+        <input id="phone" name="phone" type="number" placeholder="Input your phone number"><br>
+
+        <input type="submit">
+
+    </form>
+
+</div>
+
+</body>
+</html>
