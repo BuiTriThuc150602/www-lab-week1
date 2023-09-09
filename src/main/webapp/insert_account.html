@@ -3,25 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Sign Up</title>
+    <link rel="stylesheet" href="CSS/main.css">
 </head>
 <body>
 <div class="form_signup">
     <form action="ControllerServlet" method="post">
         <input type="hidden" name="action" value="insert_account">
 
-        <label for="us"></label><br>
-        <input id="us" name="us" placeholder="Input your name account"><br>
+        <div class="form_group">
+            <label for="us">User Name</label>
+            <input id="us" name="us" placeholder="Input your name account"><br>
+        </div>
 
-        <label for="pwd"></label><br>
-        <input id="pwd" name="pwd" type="password" placeholder="Input your new password"><br>
+        <div class="form_group">
+            <label for="pwd">Password</label>
+            <input id="pwd" name="pwd" type="password" placeholder="Input your new password"><br>
+        </div>
 
-        <label for="email"></label><br>
-        <input id="email" name="email" placeholder="Input your email" type="email"><br>
+        <div class="form_group">
+            <label for="email">Email</label>
+            <input id="email" name="email" placeholder="Input your email" type="email"><br>
+        </div>
 
-        <label for="phone"></label><br>
-        <input id="phone" name="phone" type="number" placeholder="Input your phone number"><br>
+        <div class="form_group">
+            <label for="phone">Phone Number</label>
+            <input id="phone" name="phone" type="number" placeholder="Input your phone number"><br>
+        </div>
 
-        <input type="submit">
+        <div class="form_group"><button type="submit">Submit</button></div>
 
     </form>
 
