@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Manager</title>
+    <script src="JS/Dashboard.js" defer></script>
+    <link rel="stylesheet" href="CSS/dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <table id="tbList">
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Full Name</td>
+                    <td>Password</td>
+                    <td>Email</td>
+                    <td>Phone</td>
+                    <td>Status</td>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <div class="form-container">
+            <form action="ControllerServlet" method="post">
+                <input type="hidden" name="action" value="add">
+                <div class="input-group">
+                    <input type="text" name="txtID" id="txtID" placeholder="ID" required>
+                    <input type="text" name="txtFullName" id="txtFullName" placeholder="Full Name" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" name="txtPassword" id="txtPassword" placeholder="Password" required>
+                    <input type="email" name="txtEmail" id="txtEmail" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <input type="text" name="txtPhone" id="txtPhone" placeholder="Phone" required>
+                    <input type="text" name="txtStatus" id="txtStatus" placeholder="Status" required>
+                </div>
+                <div class="input-group">
+                    <input type="submit" value="Update" id="btnUpdate">
+                    <input type="submit" value="Delete" id="btnDelete">
+                </div>
+                <div class="input-group">
+                    <input type="submit" value="Add" id="btnAdd">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
