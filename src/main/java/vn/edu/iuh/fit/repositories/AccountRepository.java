@@ -28,6 +28,33 @@ public class AccountRepository {
     return rs > 0;
   }
 
+  //delete
+  public boolean delete_account(String id) throws SQLException {
+    String sql = "DELETE FROM account WHERE account_id = ?";
+    int rs;
+    PreparedStatement ps = connection.prepareStatement(sql);
+    ps.setNString(1, id);
+    rs = ps.executeUpdate();
+    return rs > 0;
+  }
+
+  //update
+  public boolean update_account(Account acc) throws SQLException {
+    String sql = "UPDATE account SET full_name = ?, password = ?, email = ?, phone = ?, status = ? WHERE account_id = ?";
+    int rs;
+    PreparedStatement ps = connection.prepareStatement(sql);
+    ps.setNString(1, acc.getFull_name());
+    ps.setNString(2, acc.getPassword());
+    ps.setNString(3, acc.getEmail());
+    ps.setNString(4, acc.getPhone());
+    ps.setInt(5, acc.getStatus());
+    ps.setNString(6, acc.getAccount_id());
+    rs = ps.executeUpdate();
+    return rs > 0;
+  }
+
+  
+
   public List<Account> getAllAccount() {
     String sql = "select * from account";
     List<Account> list = new ArrayList<>();
@@ -49,6 +76,8 @@ public class AccountRepository {
     }
     return list;
   }
+
+
 
 
 }

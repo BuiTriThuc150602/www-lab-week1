@@ -8,6 +8,10 @@ public class Account {
     private String phone;
     private int status;
 
+    public Account() {
+        this("undefind","undefind","undefind","undefind","undefind",0);
+    }
+
     public Account(String account_id, String full_name, String password,String email, String phone, int status) {
         this.account_id = account_id;
         this.full_name = full_name;

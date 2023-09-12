@@ -1,4 +1,12 @@
-let table = document.getElementById("tbList");
+var table = document.getElementById("tbList");
+var obj;
+var txtID = document.getElementById("txtID");
+var txtFullName = document.getElementById("txtFullName");
+var txtPassword = document.getElementById("txtPassword");
+var txtEmail = document.getElementById("txtEmail");
+var txtPhone = document.getElementById("txtPhone");
+var txtStatus = document.getElementById("txtStatus");
+
 fetch(
   "http://localhost:8080/week01_lab_BuiTriThuc_20088361/ControllerServlet?action=getall"
 )
@@ -6,7 +14,22 @@ fetch(
   .then((data) =>
     data.forEach((acc) => {
       let row = table.insertRow(-1);
-      row.addEventListener("click", () => {console.log("click");});
+
+      row.addEventListener("click", () => {
+        id = acc.account_id;
+        fname = acc.full_name;
+        pass = acc.password;
+        email = acc.email;
+        phone = acc.phone;
+        sts = acc.status;
+        obj = { id, fname, pass, email, phone, sts };
+        txtID.value = obj.id;
+        txtFullName.value = obj.fname;
+        txtPassword.value = obj.pass;
+        txtEmail.value = obj.email;
+        txtPhone.value = obj.phone;
+        txtStatus.value = obj.sts;
+      });
       row.insertCell(0).innerHTML = acc.account_id;
       row.insertCell(1).innerHTML = acc.full_name;
       row.insertCell(2).innerHTML = acc.password;
@@ -16,28 +39,54 @@ fetch(
     })
   );
 
-// let rows = document.querySelectorAll("#tbList tbody tr");
-// console.log(rows);
+document.getElementById("btnAdd").addEventListener("click", () => {
+  window.location.href = "insert_account.html";
+});
 
-// Gán sự kiện click cho từng hàng
-// rows.forEach((row) => {
-//   row.addEventListener("click", () => {
-//     // rows.forEach((r) => {
-//     //   r.classList.remove("selected");
-//     // });
-//     this.classList.add("selected");
-//   });
-// });
+document.getElementById("btnUpdate").addEventListener("click", (even) => {
+  even.preventDefault();
+  var url =
+    "http://localhost:8080/week01_lab_BuiTriThuc_20088361/ControllerServlet?action=test";
 
-// // Lấy dữ liệu từ hàng được chọn
-// let selectRow = document.getElementsByTagName("td");
-// console.log(selectRow);
-// let id = selectRow[0].textContent;
-// let fname = selectRow[1].textContent;
-// let pass = selectRow[2].textContent;
-// let email = selectRow[3].textContent;
-// let phone = selectRow[4].textContent;
-// let status = selectRow[5].textContent;
+  let id = txtID.value;
+  let fname = txtFullName.value;
+  let pass = txtPassword.value;
+  let email = txtEmail.value;
+  let phone = txtPhone.value;
+  let sts = txtStatus.value;
+  let objUpdate = { id, fname, pass, email, phone, sts };
+  fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(objUpdate),
+  }).then((response) => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error("Request failed with status: " + response.status);
+    }
+  });
+});
 
-// // Hiển thị thông tin hàng được chọn (ví dụ: alert)
-// console.log(id + fname);
+document.getElementById("btnDelete").addEventListener("click", (even) => {
+  even.preventDefault();
+  var url =
+    "http://localhost:8080/week01_lab_BuiTriThuc_20088361/ControllerServlet";
+
+  let id = txtID.value;
+  fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "text/plain",
+    },
+    body: id,
+  }).then((response) => {
+    if (response.ok) {
+      alert("Delete success account with id: " + id);
+    } else {
+      alert("Delete failed with status: " + response.status);
+    }
+  });
+});
