@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/signup_login.css">
+    <script src="JS/login.js" defer></script>
+    <title>Login Account</title>
+</head>
+<body>
+    <div class="form_login">
+        <form action="ControllerServlet" method="get">
+            <input type="hidden" name="action" value="login">
+    
+            <div class="form_group">
+                <label for="us">User Name</label>
+                <input id="us" name="us" placeholder="Input your name account"><br>
+            </div>
+    
+            <div class="form_group">
+                <label for="pwd">Password</label>
+                <input id="pwd" name="pwd" type="password" placeholder="Input your new password"><br>
+            </div>
+            <div class="form_group">
+                <button id="submit" type="submit">Submit</button>
+                <button id="clear" type="reset">Reset</button>
+            </div>   
+        </form>
+    
+    </div>
+    
+</body>
+</html>

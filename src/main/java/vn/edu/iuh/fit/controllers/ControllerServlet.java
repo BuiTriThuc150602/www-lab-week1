@@ -15,17 +15,20 @@ import vn.edu.iuh.fit.models.Account;
 import vn.edu.iuh.fit.repositories.AccountRepository;
 
 import java.io.IOException;
+import vn.edu.iuh.fit.repositories.GrantAccessRepository;
 
 
 @WebServlet(urlPatterns = {"/ControllerServlet"})
 public class ControllerServlet extends HttpServlet {
 
   private final AccountRepository accRep;
+  private final GrantAccessRepository GAR;
   private final Gson gson = new Gson();
   private BufferedReader reader;
   private StringBuilder jsonBuilder;
 
   public ControllerServlet() throws Exception {
+    GAR = new GrantAccessRepository();
     accRep = new AccountRepository();
   }
 
@@ -39,6 +42,26 @@ public class ControllerServlet extends HttpServlet {
       resp.setContentType("application/json");
       resp.setCharacterEncoding("UTF-8");
       resp.getWriter().write(jsonData);
+    }
+    // login 
+    if (action.equalsIgnoreCase("login")) {
+      String us = req.getParameter("us");
+      String pwd = req.getParameter("pwd");
+      Account acc = accRep.getAccount(us, pwd);
+
+      if (acc != null) {
+        String role;
+        try {
+          role = GAR.grantAccess(acc.getAccount_id()).getRole_id();
+        } catch (SQLException e) {
+          throw new RuntimeException(e);
+        }
+        resp.setContentType("text/plain");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write(role);
+      } else {
+        resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+      }
     }
 
 
