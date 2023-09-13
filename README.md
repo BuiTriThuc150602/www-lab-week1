@@ -1,6 +1,8 @@
 # Web Servlet - Các chức năng cơ bản của web site quản lý tài khoản
 ## các chức năng chính :
 ### Đăng Nhập
+  ![image](https://github.com/BuiTriThuc150602/www-lab-week1/assets/125670011/44fd76f5-5560-4703-b7d2-4c9caaa12740)
+
 ### Đăng ký tài khoản mới
   ![image](https://github.com/BuiTriThuc150602/www-lab-week1/assets/125670011/001084f5-e462-43c1-80e7-c2f0117c34d8)
 
