@@ -49,6 +49,10 @@ public class ControllerServlet extends HttpServlet {
       String pwd = req.getParameter("pwd");
       Account acc = accRep.getAccount(us, pwd);
 
+      System.out.println(us);
+      System.out.println(pwd);
+      System.out.println(acc);
+
       if (acc != null) {
         String role;
         try {
@@ -56,6 +60,8 @@ public class ControllerServlet extends HttpServlet {
         } catch (SQLException e) {
           throw new RuntimeException(e);
         }
+        System.out.println(role);
+        resp.setStatus(HttpServletResponse.SC_OK);
         resp.setContentType("text/plain");
         resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(role);

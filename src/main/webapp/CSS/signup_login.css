@@ -18,19 +18,19 @@ body{
     align-items: center;
     justify-content: center;
 }
-.form_signup, .form_login form{
+form{
     width: 40%;
     padding: 30px;
     border: 1px solid rgb(0,0,0);
     border-radius: 10%;
     box-shadow: 10px 10px rgb(128, 128, 128);
 }
-.form_signup, .form_login label{
+label{
     width: 150px;
     height: 30px;
     font-weight: 700;
 }
-.form_signup, .form_login input{
+input{
     width: 68%;
     height: 30px;
     border: 0;
@@ -38,7 +38,7 @@ body{
     border-bottom: 1px solid rgb(128, 128, 128);
     background: none;
 }
-.form_signup,.form_login input:focus{
+input:focus{
     border: 0;
     outline: 0;
     border-bottom: 1px solid rgb(128, 128, 128);

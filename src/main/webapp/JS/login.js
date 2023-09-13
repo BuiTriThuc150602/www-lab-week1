@@ -12,11 +12,31 @@ document.getElementById("submit").addEventListener("click", (even) => {
     "http://localhost:8080/week01_lab_BuiTriThuc_20088361/ControllerServlet";
   var urlWithParams = apiUrl + "?" + queryString;
   fetch(urlWithParams)
-    .then((response) => response.text())
+    // .then((response) => {
+    //   if (response.ok) {
+    //     alert("Login successfully as admin");
+    //     setTimeout(() => {
+    //       window.location.href = "Dashboard.html";
+    //     }, 5000);
+    //     return response.text();
+        
+    //   } else {
+    //     alert("Login failed");
+    //     throw new Error("Request failed with status: " + response.status);
+    //   }
+    // })
     .then((data) => {
       var role = data;
       if (role === "admin") {
-        window.location.href = "Dashboard.html";
+        alert("Login successfully as admin");
+        // setTimeout(() => {
+        //   window.location.href = "Dashboard.html";
+        // }, 5000);
+      } else {
+        alert("Login successfully as user");
+        // setTimeout(() => {
+        //   window.location.href = "Dashboard.html";
+        // }, 5000);
       }
     });
 });
