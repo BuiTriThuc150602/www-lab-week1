@@ -5,6 +5,7 @@ let showPass = document.getElementById("btnShowPass");
 let btnLogout = document.getElementById("btnLogout");
 console.log(account);
 console.log(role);
+console.log(showPass);
 
 
 //account
