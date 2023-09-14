@@ -14,20 +14,30 @@ document.getElementById("submit").addEventListener("click", (even) => {
   fetch(urlWithParams)
     .then((response) => {
       if (response.ok) {
-        return response.text();
+        return response.json();
       } else {
         alert("Login failed");
         throw new Error("Request failed with status: " + response.status);
       }
     })
     .then((data) => {
-      var role = data;
-      if (role === "admin") {
-        alert("Login successfully as admin");
+      var role =JSON.parse(data.role);
+      var account = JSON.parse(data.account);
+      console.log(data);
+      console.log(role);
+      console.log(account);
+      if (role.role_id === "admin") {
+        alert("Login successfully as admin :" + account.full_name);
+        localStorage.clear();
+        localStorage.setItem("accLogin", JSON.stringify(account));
+        localStorage.setItem("roleLogin", JSON.stringify(role));
         window.location.href = "Dashboard.html";
       } else {
-        alert("Login successfully as user");
-        window.location.href = "Dashboard.html";
+        alert("Login successfully as user : " + account.full_name);
+        localStorage.clear();
+        localStorage.setItem("accLogin", JSON.stringify(account));
+        localStorage.setItem("roleLogin", JSON.stringify(role));
+        window.location.href = "userInfo.html";
       }
-    });
+    }); 
 });

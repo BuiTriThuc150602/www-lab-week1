@@ -1,6 +1,7 @@
 package vn.edu.iuh.fit.controllers;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import vn.edu.iuh.fit.models.Account;
+import vn.edu.iuh.fit.models.GrantAccess;
 import vn.edu.iuh.fit.repositories.AccountRepository;
 
 import java.io.IOException;
@@ -34,7 +36,7 @@ public class ControllerServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
+      throws IOException {
     String action = req.getParameter("action");
     if (action.equalsIgnoreCase("getall")) {
       List<Account> list = accRep.getAllAccount();
@@ -54,17 +56,27 @@ public class ControllerServlet extends HttpServlet {
       System.out.println(acc);
 
       if (acc != null) {
-        String role;
+        GrantAccess grantAccess;
         try {
-          role = GAR.grantAccess(acc.getAccount_id()).getRole_id();
+          grantAccess = GAR.grantAccess(acc.getAccount_id());
         } catch (SQLException e) {
           throw new RuntimeException(e);
         }
-        System.out.println(role);
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.setContentType("text/plain");
+        System.out.println(acc);
+        System.out.println(grantAccess);
+
+        String account = gson.toJson(acc);
+        String role = gson.toJson(grantAccess);
+
+        JsonObject objData = new JsonObject();
+        objData.addProperty("account",account);
+        objData.addProperty("role",role);
+
+        resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
-        resp.getWriter().write(role);
+        resp.getWriter().write(objData.toString());
+        resp.setStatus(HttpServletResponse.SC_OK);
+
       } else {
         resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
       }
@@ -117,7 +129,7 @@ public class ControllerServlet extends HttpServlet {
 
   @Override
   protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
+      throws IOException {
     reader = req.getReader();
     jsonBuilder = new StringBuilder();
     String line;
