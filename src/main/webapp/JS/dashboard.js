@@ -22,7 +22,7 @@ document.getElementById("btnLogout").addEventListener("click", () => {
 });
 
 fetch(
-  "http://localhost:8080/week01_lab_BuiTriThuc_20088361/ControllerServvar?action=getall"
+  "http://localhost:8080/week01_lab_BuiTriThuc_20088361/ControllerServlet?action=getall"
 )
   .then((response) => response.json())
   .then((data) =>
@@ -53,7 +53,7 @@ document.getElementById("btnAdd").addEventListener("click", () => {
 document.getElementById("btnUpdate").addEventListener("click", (even) => {
   even.preventDefault();
   var url =
-    "http://localhost:8080/week01_lab_BuiTriThuc_20088361/ControllerServvar?action=test";
+    "http://localhost:8080/week01_lab_BuiTriThuc_20088361/ControllerServlet?action=test";
 
   var id = txtID.value;
   var fname = txtFullName.value;
@@ -64,7 +64,7 @@ document.getElementById("btnUpdate").addEventListener("click", (even) => {
   var objUpdate = { id, fname, pass, email, phone, sts };
 
   var validObj = (objUpdate) => {
-    if (objUpdate.id == "") {
+    if (objUpdate.id === "") {
       errorID.innerHTML = "ID is required";
       errorID.style.display = "block";
       return false;
@@ -72,7 +72,7 @@ document.getElementById("btnUpdate").addEventListener("click", (even) => {
     else {
       errorID.style.display = "none";
     }
-    if (objUpdate.fname == "") {
+    if (objUpdate.fname === "") {
       errorFullName.innerHTML = "Full Name is required";
       errorFullName.style.display = "block";
       return false;
@@ -80,7 +80,7 @@ document.getElementById("btnUpdate").addEventListener("click", (even) => {
     else {
       errorFullName.style.display = "none";
     }
-    if (objUpdate.pass == "") {
+    if (objUpdate.pass === "") {
       errorPassword.innerHTML = "Password is required";
       errorPassword.style.display = "block";
       return false;
@@ -88,7 +88,7 @@ document.getElementById("btnUpdate").addEventListener("click", (even) => {
     else {
       errorPassword.style.display = "none";
     }
-    if (objUpdate.email == "") {
+    if (objUpdate.email === "") {
       errorEmail.innerHTML = "Email is required";
       errorEmail.style.display = "block";
       return false;
@@ -96,7 +96,7 @@ document.getElementById("btnUpdate").addEventListener("click", (even) => {
     else {
       errorEmail.style.display = "none";
     }
-    if (objUpdate.phone == "") {
+    if (objUpdate.phone === "") {
       errorPhone.innerHTML = "Phone is required";
       errorPhone.style.display = "block";
       return false;
@@ -104,7 +104,7 @@ document.getElementById("btnUpdate").addEventListener("click", (even) => {
     else {
       errorPhone.style.display = "none";
     }
-    if (objUpdate.sts == "") {
+    if (objUpdate.sts === "") {
       errorStatus.innerHTML = "Status is required";
       errorStatus.style.display = "block";
       return false;
@@ -131,23 +131,23 @@ document.getElementById("btnUpdate").addEventListener("click", (even) => {
   }
 });
 
-document.getElementById("btnDevare").addEventListener("click", (even) => {
+document.getElementById("btnDelete").addEventListener("click", (even) => {
   even.preventDefault();
   var url =
-    "http://localhost:8080/week01_lab_BuiTriThuc_20088361/ControllerServvar";
+    "http://localhost:8080/week01_lab_BuiTriThuc_20088361/ControllerServlet";
 
   var id = txtID.value;
   fetch(url, {
-    method: "DEvarE",
+    method: "DELETE",
     headers: {
       "Content-Type": "text/plain",
     },
     body: id,
   }).then((response) => {
     if (response.ok) {
-      alert("Devare success account with id: " + id);
+      alert("Delete success account with id: " + id);
     } else {
-      alert("Devare failed with status: " + response.status);
+      alert("Delete failed with status: " + response.status);
     }
   });
 });

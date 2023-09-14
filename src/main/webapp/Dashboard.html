@@ -1,19 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Account Manager</title>
-    <script src="JS/Dashboard.js" defer></script>
-    <link rel="stylesheet" href="CSS/dashboard.css">
+    <script src="JS/dashboard.js" defer></script>
+    <script src="https://kit.fontawesome.com/d5a87402bd.js" crossorigin="anonymous" defer></script>
+    <link rel="stylesheet" href="CSS/dashboard.css" />
 </head>
+
 <body>
-    <!-- <div class="header">
-        
-    </div> -->
     <div class="container">
-        <h1>Account Manager</h1>
+        <!-- user login information -->
+        <div class="user-info">
+            <div class="user-avatar">
+                <i class="fa-solid fa-user"></i>
+                <span id="usLogin">user</span>
+            </div>
+            <div class="user-logout">
+                <button id="btnLogout">Logout</button>
+            </div>
+        </div>
         <table id="tbList">
+            <caption>
+                Account Manager
+            </caption>
             <thead>
                 <tr>
                     <td>ID</td>
@@ -28,28 +40,47 @@
         </table>
         <div class="form-container">
             <form action="ControllerServlet" method="post">
-                <input type="hidden" name="action" value="add">
-                <div class="input-group">
-                    <input type="text" name="txtID" id="txtID" placeholder="ID" required>
-                    <input type="text" name="txtFullName" id="txtFullName" placeholder="Full Name" required>
+                <input type="hidden" name="action" value="add" />
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="error" id="erID">error</span>
+                        <input type="text" name="txtID" id="txtID" placeholder="ID" required readonly />
+                    </div>
+                    <div class="input-group">
+                        <span class="error" id="erFullName">error</span>
+                        <input type="text" name="txtFullName" id="txtFullName" placeholder="Full Name" required />
+                    </div>
                 </div>
-                <div class="input-group">
-                    <input type="password" name="txtPassword" id="txtPassword" placeholder="Password" required>
-                    <input type="email" name="txtEmail" id="txtEmail" placeholder="Email" required>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="error" id="erPassword">error</span>
+                        <input type="password" name="txtPassword" id="txtPassword" placeholder="Password" required />
+                    </div>
+                    <div class="input-group">
+                        <span class="error" id="erEmail">error</span>
+                        <input type="email" name="txtEmail" id="txtEmail" placeholder="Email" required />
+                    </div>
                 </div>
-                <div class="input-group">
-                    <input type="text" name="txtPhone" id="txtPhone" placeholder="Phone" required>
-                    <input type="text" name="txtStatus" id="txtStatus" placeholder="Status" required>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="error" id="erPhone">error</span>
+                        <input type="text" name="txtPhone" id="txtPhone" placeholder="Phone" required />
+                    </div>
+                    <div class="input-group">
+                        <span class="error" id="erStatus">error</span>
+                        <input type="text" name="txtStatus" id="txtStatus" placeholder="Status" required />
+                    </div>
                 </div>
-                <div class="input-group">
-                    <input type="submit" value="Update" id="btnUpdate">
-                    <input type="submit" value="Delete" id="btnDelete">
+                <div class="form-group">
+                    <input type="submit" value="Update" id="btnUpdate" />
+                    <input type="submit" value="Delete" id="btnDelete" />
                 </div>
-                <div class="input-group">
-                    <input type="submit" value="Add" id="btnAdd">
+                <div class="form-group">
+                    <input type="submit" value="Add" id="btnAdd" />
                 </div>
             </form>
         </div>
     </div>
 </body>
+
 </html>
