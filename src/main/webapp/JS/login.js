@@ -31,7 +31,7 @@ document.getElementById("submit").addEventListener("click", (even) => {
         localStorage.clear();
         localStorage.setItem("accLogin", JSON.stringify(account));
         localStorage.setItem("roleLogin", JSON.stringify(role));
-        window.location.href = "Dashboard.html";
+        window.location.href = "dashboard.html";
       } else {
         alert("Login successfully as user : " + account.full_name);
         localStorage.clear();
