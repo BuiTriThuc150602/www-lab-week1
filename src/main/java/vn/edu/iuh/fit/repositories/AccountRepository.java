@@ -39,17 +39,23 @@ public class AccountRepository {
   }
 
   //update
-  public boolean update_account(Account acc) throws SQLException {
+  public boolean update_account(Account acc)  {
     String sql = "UPDATE account SET full_name = ?, password = ?, email = ?, phone = ?, status = ? WHERE account_id = ?";
     int rs;
-    PreparedStatement ps = connection.prepareStatement(sql);
-    ps.setNString(1, acc.getFull_name());
-    ps.setNString(2, acc.getPassword());
-    ps.setNString(3, acc.getEmail());
-    ps.setNString(4, acc.getPhone());
-    ps.setInt(5, acc.getStatus());
-    ps.setNString(6, acc.getAccount_id());
-    rs = ps.executeUpdate();
+    PreparedStatement ps;
+    try {
+      ps= connection.prepareStatement(sql);
+      ps.setNString(1, acc.getFull_name());
+      ps.setNString(2, acc.getPassword());
+      ps.setNString(3, acc.getEmail());
+      ps.setNString(4, acc.getPhone());
+      ps.setInt(5, acc.getStatus());
+      ps.setNString(6, acc.getAccount_id());
+      rs = ps.executeUpdate();
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+
     return rs > 0;
   }
 

@@ -82,13 +82,13 @@ document.getElementById("btnAdd").addEventListener("click", () => {
 document.getElementById("btnUpdate").addEventListener("click", (even) => {
   even.preventDefault();
 
-  let id = txtID.value;
-  let fname = txtFullName.value;
-  let pass = txtPassword.value;
+  let account_id = txtID.value;
+  let full_name = txtFullName.value;
+  let password = txtPassword.value;
   let email = txtEmail.value;
   let phone = txtPhone.value;
-  let sts = txtStatus.value;
-  let objUpdate = { id, fname, pass, email, phone, sts };
+  let status = txtStatus.value;
+  let objUpdate = { account_id, full_name, password, email, phone, status };
 
   let validObj = (objUpdate) => {
     if (objUpdate.id === "") {
@@ -148,7 +148,13 @@ document.getElementById("btnUpdate").addEventListener("click", (even) => {
     return true;
   };
   if (validObj(objUpdate)) {
-    fetch(url, {
+    let param = {
+      action: "update",
+    };
+    let queryString = Object.keys(param).map(
+      (key) => key + "=" + encodeURIComponent(param[key])
+    );
+    fetch(url + "?" + queryString, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -156,7 +162,7 @@ document.getElementById("btnUpdate").addEventListener("click", (even) => {
       body: JSON.stringify(objUpdate),
     }).then((response) => {
       if (response.ok) {
-        return response.json();
+        alert("Update success account with id: " + objUpdate.account_id);
       } else {
         throw new Error("Request failed with status: " + response.status);
       }
@@ -206,11 +212,16 @@ document.getElementById("btnSetRole").addEventListener("click", (even) => {
   let queryString = Object.keys(params)
     .map((key) => key + "=" + encodeURIComponent(params[key]))
     .join("&");
-  fetch(url + "?" + queryString,{
-    method: "POST"
+  fetch(url + "?" + queryString, {
+    method: "POST",
   }).then((response) => {
     if (response.ok) {
-      alert("Set role " + roleAccess.value + " success for account with id: " + id.value);
+      alert(
+        "Set role " +
+          roleAccess.value +
+          " success for account with id: " +
+          id.value
+      );
     } else {
       alert("Set role failed with status: " + response.status);
     }

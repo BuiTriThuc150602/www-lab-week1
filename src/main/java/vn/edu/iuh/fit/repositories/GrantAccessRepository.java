@@ -35,8 +35,6 @@ public class GrantAccessRepository {
   public boolean setRoleAccount(String account_id, String role_id) {
     String sqlInsert = "INSERT INTO grant_access (role_id,account_id) VALUE(?,?)";
     String sqlUpdate = "UPDATE grant_access SET role_id = ? WHERE account_id = ?";
-    System.out.println(role_id);
-    System.out.println(account_id);
     try {
       PreparedStatement ps;
       if(grantAccess(account_id)!= null){

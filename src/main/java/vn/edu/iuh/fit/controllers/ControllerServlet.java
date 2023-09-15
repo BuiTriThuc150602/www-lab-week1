@@ -53,10 +53,6 @@ public class ControllerServlet extends HttpServlet {
       String pwd = req.getParameter("pwd");
       Account acc = accRep.getAccount(us, pwd);
 
-      System.out.println(us);
-      System.out.println(pwd);
-      System.out.println(acc);
-
       if (acc != null) {
         GrantAccess grantAccess;
         try {
@@ -120,7 +116,7 @@ public class ControllerServlet extends HttpServlet {
 
       }
     }
-    if (action.equalsIgnoreCase("test")) {
+    if (action.equalsIgnoreCase("update")) {
       reader = req.getReader();
       jsonBuilder = new StringBuilder();
       String line;
@@ -128,7 +124,13 @@ public class ControllerServlet extends HttpServlet {
         jsonBuilder.append(line);
       }
       Account acc = gson.fromJson(jsonBuilder.toString(), Account.class);
-      System.out.println(acc);
+      if (accRep.update_account(acc)){
+        resp.setStatus(HttpServletResponse.SC_OK);
+      }
+      else
+        resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+
+
     }
 
     if (action.equalsIgnoreCase("setRole")){
