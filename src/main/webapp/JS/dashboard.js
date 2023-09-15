@@ -196,7 +196,8 @@ document.getElementById("btnLogout").addEventListener("click", () => {
 });
 
 //set role for account
-document.getElementById("btnSetRole").addEventListener("click", () => {
+document.getElementById("btnSetRole").addEventListener("click", (even) => {
+  even.preventDefault();
   let params = {
     action: "setRole",
     account_id: id.value,
@@ -205,9 +206,11 @@ document.getElementById("btnSetRole").addEventListener("click", () => {
   let queryString = Object.keys(params)
     .map((key) => key + "=" + encodeURIComponent(params[key]))
     .join("&");
-  fetch(url + "?" + queryString).then((response) => {
+  fetch(url + "?" + queryString,{
+    method: "POST"
+  }).then((response) => {
     if (response.ok) {
-      alert("Set role " + roleAccess.value + "success for account with id: " + id.value);
+      alert("Set role " + roleAccess.value + " success for account with id: " + id.value);
     } else {
       alert("Set role failed with status: " + response.status);
     }
