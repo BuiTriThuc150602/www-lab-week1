@@ -21,7 +21,6 @@ let url =
 
 // /get user name login
 let accountLogin = JSON.parse(localStorage.getItem("accLogin"));
-console.log(accountLogin);
 usLogin.innerHTML = accountLogin.full_name;
 
 // btn logout
