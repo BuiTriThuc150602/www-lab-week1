@@ -1,44 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Sign Up</title>
     <link rel="stylesheet" href="CSS/signup_login.css">
+    <script src="JS/insert_account.js" defer></script>
 </head>
+
 <body>
-<div class="form_signup">
-    <form action="ControllerServlet" method="post">
-        <input type="hidden" name="action" value="insert_account">
+    <div class="form_signup">
+        <form action="ControllerServlet" method="post">
+            <input type="hidden" name="action" value="insert_account">
 
-        <div class="form_group">
-            <label for="us">User Name</label>
-            <input id="us" name="us" placeholder="Input your name account"><br>
-        </div>
+            <div class="form_group">
+                <label for="us">User Name</label>
+                <div class="input-group">
+                    <span class="error" id="erUS">error</span>
+                    <input id="us" name="us" placeholder="Input your name account">
+                </div>
+            </div>
 
-        <div class="form_group">
-            <label for="pwd">Password</label>
-            <input id="pwd" name="pwd" type="password" placeholder="Input your new password"><br>
-        </div>
+            <div class="form_group">
+                <label for="pwd">Password</label>
+                <div class="input-group">
+                    <span class="error" id="erPwd">error</span>
+                    <input id="pwd" name="pwd" type="password" placeholder="Input your password">
+                </div>
+            </div>
 
-        <div class="form_group">
-            <label for="email">Email</label>
-            <input id="email" name="email" placeholder="Input your email" type="email"><br>
-        </div>
+            <div class="form_group">
+                <label for="email">Email</label>
+                <div class="input-group">
+                    <span class="error" id="erEmail">error</span>
+                    <input id="email" name="email" placeholder="Input your email" type="email">
+                </div>
+            </div>
 
-        <div class="form_group">
-            <label for="phone">Phone Number</label>
-            <input id="phone" name="phone" type="number" placeholder="Input your phone number"><br>
-        </div>
+            <div class="form_group">
+                <label for="phone">Phone Number</label>
+                <div class="input-group">
+                    <span class="error" id="erPhone">error</span>
+                    <input id="phone" name="phone" type="number" placeholder="Input your phone number">
+                </div>
+            </div>
 
-        <div class="form_group">
-            <button id="submit" type="submit">Submit</button>
-            <button id="clear" type="reset">Reset</button>
+            <div class="form_group">
+                <button id="btnSubmit" type="button">Submit</button>
+                <button id="clear" type="reset">Reset</button>
 
-        </div>
+            </div>
 
-    </form>
+        </form>
 
-</div>
+    </div>
 
 </body>
+
 </html>

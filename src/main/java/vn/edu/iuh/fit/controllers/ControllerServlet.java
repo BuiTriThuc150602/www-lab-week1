@@ -2,7 +2,6 @@ package vn.edu.iuh.fit.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,6 +17,7 @@ import vn.edu.iuh.fit.repositories.AccountRepository;
 
 import java.io.IOException;
 import vn.edu.iuh.fit.repositories.GrantAccessRepository;
+import vn.edu.iuh.fit.repositories.LogsRepository;
 
 
 @WebServlet(urlPatterns = {"/ControllerServlet"})
@@ -25,6 +25,7 @@ public class ControllerServlet extends HttpServlet {
 
   private final AccountRepository accRep;
   private final GrantAccessRepository GAR;
+  private final LogsRepository logRep;
   private final Gson gson = new Gson();
   private BufferedReader reader;
   private StringBuilder jsonBuilder;
@@ -32,6 +33,7 @@ public class ControllerServlet extends HttpServlet {
   public ControllerServlet() throws Exception {
     GAR = new GrantAccessRepository();
     accRep = new AccountRepository();
+    logRep = new LogsRepository();
   }
 
   @Override
@@ -62,25 +64,30 @@ public class ControllerServlet extends HttpServlet {
         } catch (SQLException e) {
           throw new RuntimeException(e);
         }
-        System.out.println(acc);
-        System.out.println(grantAccess);
 
         String account = gson.toJson(acc);
         String role = gson.toJson(grantAccess);
 
         JsonObject objData = new JsonObject();
-        objData.addProperty("account",account);
-        objData.addProperty("role",role);
+        objData.addProperty("account", account);
+        objData.addProperty("role", role);
 
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(objData.toString());
         resp.setStatus(HttpServletResponse.SC_OK);
 
+        //wirte log login
+        logRep.setLogTime(acc.getAccount_id(),"");
       } else {
         resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
       }
+
     }
+    if (action.equalsIgnoreCase("setTimeLogout")){
+      logRep.setLogoutTime(req.getParameter("account_id"));
+    }
+
 
 
   }
@@ -122,9 +129,8 @@ public class ControllerServlet extends HttpServlet {
       }
       Account acc = gson.fromJson(jsonBuilder.toString(), Account.class);
       System.out.println(acc);
-
-
     }
+
   }
 
   @Override
@@ -136,12 +142,11 @@ public class ControllerServlet extends HttpServlet {
     while ((line = reader.readLine()) != null) {
       jsonBuilder.append(line);
     }
-    System.out.println("ID Delete: "+jsonBuilder.toString());
+    System.out.println("ID Delete: " + jsonBuilder.toString());
     try {
-      if(accRep.delete_account(jsonBuilder.toString())){
+      if (accRep.delete_account(jsonBuilder.toString())) {
         resp.setStatus(HttpServletResponse.SC_OK);
-      }
-      else{
+      } else {
         resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       }
     } catch (SQLException e) {

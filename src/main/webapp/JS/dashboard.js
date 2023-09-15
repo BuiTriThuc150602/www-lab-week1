@@ -1,33 +1,39 @@
-var table = document.getElementById("tbList");
-var txtID = document.getElementById("txtID");
-var txtFullName = document.getElementById("txtFullName");
-var txtPassword = document.getElementById("txtPassword");
-var txtEmail = document.getElementById("txtEmail");
-var txtPhone = document.getElementById("txtPhone");
-var txtStatus = document.getElementById("txtStatus");
+let usLogin = document.getElementById("usLogin");
+let table = document.getElementById("tbList");
+let txtID = document.getElementById("txtID");
+let txtFullName = document.getElementById("txtFullName");
+let txtPassword = document.getElementById("txtPassword");
+let txtEmail = document.getElementById("txtEmail");
+let txtPhone = document.getElementById("txtPhone");
+let txtStatus = document.getElementById("txtStatus");
 
 // error element
-var errorID = document.getElementById("erID");
-var errorFullName = document.getElementById("erFullName");
-var errorPassword = document.getElementById("erPassword");
-var errorEmail = document.getElementById("erEmail");
-var errorPhone = document.getElementById("erPhone");
-var errorStatus = document.getElementById("erStatus");
+let errorID = document.getElementById("erID");
+let errorFullName = document.getElementById("erFullName");
+let errorPassword = document.getElementById("erPassword");
+let errorEmail = document.getElementById("erEmail");
+let errorPhone = document.getElementById("erPhone");
+let errorStatus = document.getElementById("erStatus");
 
+//url api
+let url =
+  "http://localhost:8080/week01_lab_BuiTriThuc_20088361/ControllerServlet";
 
+// /get user name login
+let accountLogin = JSON.parse(localStorage.getItem("accLogin"));
+console.log(accountLogin);
+usLogin.innerHTML = accountLogin.full_name;
 
 // btn logout
 document.getElementById("btnLogout").addEventListener("click", () => {
   window.location.href = "index.html";
 });
 
-fetch(
-  "http://localhost:8080/week01_lab_BuiTriThuc_20088361/ControllerServlet?action=getall"
-)
+fetch(url + "?action=getall")
   .then((response) => response.json())
   .then((data) =>
     data.forEach((acc) => {
-      var row = table.insertRow(-1);
+      let row = table.insertRow(-1);
 
       row.addEventListener("click", () => {
         txtID.value = acc.account_id;
@@ -52,64 +58,68 @@ document.getElementById("btnAdd").addEventListener("click", () => {
 
 document.getElementById("btnUpdate").addEventListener("click", (even) => {
   even.preventDefault();
-  var url =
-    "http://localhost:8080/week01_lab_BuiTriThuc_20088361/ControllerServlet?action=test";
 
-  var id = txtID.value;
-  var fname = txtFullName.value;
-  var pass = txtPassword.value;
-  var email = txtEmail.value;
-  var phone = txtPhone.value;
-  var sts = txtStatus.value;
-  var objUpdate = { id, fname, pass, email, phone, sts };
+  let id = txtID.value;
+  let fname = txtFullName.value;
+  let pass = txtPassword.value;
+  let email = txtEmail.value;
+  let phone = txtPhone.value;
+  let sts = txtStatus.value;
+  let objUpdate = { id, fname, pass, email, phone, sts };
 
-  var validObj = (objUpdate) => {
+  let validObj = (objUpdate) => {
     if (objUpdate.id === "") {
       errorID.innerHTML = "ID is required";
       errorID.style.display = "block";
       return false;
-    }
-    else {
+    } else {
       errorID.style.display = "none";
     }
     if (objUpdate.fname === "") {
       errorFullName.innerHTML = "Full Name is required";
       errorFullName.style.display = "block";
       return false;
-    }
-    else {
+    } else {
       errorFullName.style.display = "none";
     }
     if (objUpdate.pass === "") {
       errorPassword.innerHTML = "Password is required";
       errorPassword.style.display = "block";
       return false;
-    }
-    else {
+    } else {
       errorPassword.style.display = "none";
     }
     if (objUpdate.email === "") {
       errorEmail.innerHTML = "Email is required";
       errorEmail.style.display = "block";
       return false;
-    }
-    else {
+    } else if (
+      /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(objUpdate.email) === false
+    ) {
+      errorEmail.innerHTML = "Email is invalid";
+      errorEmail.style.display = "block";
+      return false;
+    } else {
       errorEmail.style.display = "none";
     }
     if (objUpdate.phone === "") {
       errorPhone.innerHTML = "Phone is required";
       errorPhone.style.display = "block";
       return false;
-    }
-    else {
+    } else if (
+      /(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(objUpdate.phone) === false
+    ) {
+      errorPhone.innerHTML = "Phone is invalid";
+      errorPhone.style.display = "block";
+      return false;
+    } else {
       errorPhone.style.display = "none";
     }
     if (objUpdate.sts === "") {
       errorStatus.innerHTML = "Status is required";
       errorStatus.style.display = "block";
       return false;
-    }
-    else {
+    } else {
       errorStatus.style.display = "none";
     }
     return true;
@@ -133,10 +143,8 @@ document.getElementById("btnUpdate").addEventListener("click", (even) => {
 
 document.getElementById("btnDelete").addEventListener("click", (even) => {
   even.preventDefault();
-  var url =
-    "http://localhost:8080/week01_lab_BuiTriThuc_20088361/ControllerServlet";
 
-  var id = txtID.value;
+  let id = txtID.value;
   fetch(url, {
     method: "DELETE",
     headers: {
@@ -152,3 +160,14 @@ document.getElementById("btnDelete").addEventListener("click", (even) => {
   });
 });
 
+//set logout time
+document.getElementById("btnLogout").addEventListener("click", () => {
+  let params = {
+    action: "setTimeLogout",
+    account_id: accountLogin.account_id,
+  };
+  let queryString = Object.keys(params)
+    .map((key) => key + "=" + encodeURIComponent(params[key]))
+    .join("&");
+  fetch(url +"?" + queryString);
+});
