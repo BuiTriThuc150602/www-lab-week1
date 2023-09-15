@@ -15,6 +15,30 @@ let errorEmail = document.getElementById("erEmail");
 let errorPhone = document.getElementById("erPhone");
 let errorStatus = document.getElementById("erStatus");
 
+//set role
+let id = document.getElementById("txtAccountID");
+let roleAccess = document.getElementById("selcRoleAccess");
+
+//modal action
+let modal = document.getElementById("myModal");
+let span = document.getElementsByClassName("close")[0];
+document.getElementById("btnUpdateRole").addEventListener("click", () => {
+  if (txtID.value === "") {
+    alert("Please choose account to set role");
+  } else {
+    id.value = txtID.value;
+    modal.style.display = "block";
+  }
+});
+span.onclick = () => {
+  modal.style.display = "none";
+};
+window.onclick = (event) => {
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+};
+
 //url api
 let url =
   "http://localhost:8080/week01_lab_BuiTriThuc_20088361/ControllerServlet";
@@ -168,5 +192,24 @@ document.getElementById("btnLogout").addEventListener("click", () => {
   let queryString = Object.keys(params)
     .map((key) => key + "=" + encodeURIComponent(params[key]))
     .join("&");
-  fetch(url +"?" + queryString);
+  fetch(url + "?" + queryString);
+});
+
+//set role for account
+document.getElementById("btnSetRole").addEventListener("click", () => {
+  let params = {
+    action: "setRole",
+    account_id: id.value,
+    role_access: roleAccess.value,
+  };
+  let queryString = Object.keys(params)
+    .map((key) => key + "=" + encodeURIComponent(params[key]))
+    .join("&");
+  fetch(url + "?" + queryString).then((response) => {
+    if (response.ok) {
+      alert("Set role " + roleAccess.value + "success for account with id: " + id.value);
+    } else {
+      alert("Set role failed with status: " + response.status);
+    }
+  });
 });

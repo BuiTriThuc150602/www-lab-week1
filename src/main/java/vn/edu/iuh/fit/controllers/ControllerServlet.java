@@ -131,6 +131,16 @@ public class ControllerServlet extends HttpServlet {
       System.out.println(acc);
     }
 
+    if (action.equalsIgnoreCase("setRole")){
+      String AccID = req.getParameter("account_id");
+      String roleAccess = req.getParameter("role_access");
+      if (GAR.setRoleAccount(AccID,roleAccess)){
+        resp.setStatus(HttpServletResponse.SC_OK);
+      }
+      else
+        resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+    }
+
   }
 
   @Override

@@ -28,15 +28,17 @@
             </caption>
             <thead>
                 <tr>
-                    <td>ID</td>
-                    <td>Full Name</td>
-                    <td>Password</td>
-                    <td>Email</td>
-                    <td>Phone</td>
-                    <td>Status</td>
+                    <th>ID</th>
+                    <th>Full Name</th>
+                    <th>Password</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Status</th>
                 </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+
+            </tbody>
         </table>
         <div class="form-container">
             <form action="ControllerServlet" method="post">
@@ -77,8 +79,36 @@
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Add" id="btnAdd" />
+                    <input type="button" value="Update Role" id="btnUpdateRole" />
                 </div>
             </form>
+        </div>
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Account Role</h2>
+                    <span class="close">&times;</span>
+                </div>
+                <form class="form-modal">
+                    <div class="form-group">
+                        <label for="txtAccountID">Account ID</label>
+                        <input type="text" id="txtAccountID" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="selcRoleAccess">Role Access</label>
+                        <select name="selcRoleAccess" id="selcRoleAccess">
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" id="btnSetRole">Set Role</button>
+                    </div>
+                    
+                </form>
+            </div>
         </div>
     </div>
 </body>
