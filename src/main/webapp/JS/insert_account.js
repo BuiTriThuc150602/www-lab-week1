@@ -1,12 +1,12 @@
-var us = document.getElementById("us").value;
-var pwd = document.getElementById("pwd").value;
-var email = document.getElementById("email").value;
-var phone = document.getElementById("phone").value;
-var btnSubmit = document.getElementById("btnSubmit");
-var erUS = document.getElementById("erUS");
-var erPWD = document.getElementById("erPwd");
-var erEmail = document.getElementById("erEmail");
-var erPhone = document.getElementById("erPhone");
+let us = document.getElementById("us").value;
+let pwd = document.getElementById("pwd").value;
+let email = document.getElementById("email").value;
+let phone = document.getElementById("phone").value;
+let btnSubmit = document.getElementById("btnSubmit");
+let erUS = document.getElementById("erUS");
+let erPWD = document.getElementById("erPwd");
+let erEmail = document.getElementById("erEmail");
+let erPhone = document.getElementById("erPhone");
 
 console.log(us);
 console.log(pwd);
