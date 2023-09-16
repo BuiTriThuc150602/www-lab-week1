@@ -101,6 +101,7 @@ public class ControllerServlet extends HttpServlet {
       String id = last_name_to_id[last_name_to_id.length - 1];
 
       Account account = new Account(id, us, pwd, email, phone, status);
+      System.out.println(account);
       boolean rs;
       try {
         rs = accRep.insert_account(account);

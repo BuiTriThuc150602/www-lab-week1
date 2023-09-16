@@ -43,9 +43,11 @@ let check = () => {
   }
   return true;
 };
-btnSubmit.addEventListener("click", () => {
+btnSubmit.addEventListener("click", (even) => {
+  even.preventDefault();
   if (check()) {
-    console.log("ok");
     btnSubmit.type = "submit";
+    alert("Sign up success, Go to Login to continue");
+    window.location.href = "index.html"
   }
 });
