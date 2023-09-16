@@ -74,16 +74,15 @@ public class ControllerServlet extends HttpServlet {
         resp.setStatus(HttpServletResponse.SC_OK);
 
         //wirte log login
-        logRep.setLogTime(acc.getAccount_id(),"");
+        logRep.setLogTime(acc.getAccount_id(), "");
       } else {
         resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
       }
 
     }
-    if (action.equalsIgnoreCase("setTimeLogout")){
+    if (action.equalsIgnoreCase("setTimeLogout")) {
       logRep.setLogoutTime(req.getParameter("account_id"));
     }
-
 
 
   }
@@ -92,21 +91,26 @@ public class ControllerServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     String action = req.getParameter("action");
     if (action.equalsIgnoreCase("insert_account")) {
-      String us = req.getParameter("us");
-      String pwd = req.getParameter("pwd");
-      String email = req.getParameter("email");
-      String phone = req.getParameter("phone");
-      int status = 1;
-      String[] last_name_to_id = us.split("\\s");
-      String id = last_name_to_id[last_name_to_id.length - 1];
+      reader = req.getReader();
+      jsonBuilder = new StringBuilder();
+      String line;
+      while ((line = reader.readLine()) != null) {
+        jsonBuilder.append(line);
+      }
 
-      Account account = new Account(id, us, pwd, email, phone, status);
+      Account account = gson.fromJson(jsonBuilder.toString(), Account.class);
+      String[] newID = account.getFull_name().split("\\s");
+      account.setAccount_id(newID[newID.length-1]);
       System.out.println(account);
       boolean rs;
       try {
         rs = accRep.insert_account(account);
         if (rs) {
-          resp.setStatus(HttpServletResponse.SC_CREATED);
+          rs = GAR.setRoleAccount(account.getAccount_id(), "user");
+          if (rs) {
+            System.out.println(rs);
+            resp.setStatus(HttpServletResponse.SC_OK);
+          }
         }
       } catch (Exception e) {
         if (e instanceof SQLIntegrityConstraintViolationException) {
@@ -125,23 +129,23 @@ public class ControllerServlet extends HttpServlet {
         jsonBuilder.append(line);
       }
       Account acc = gson.fromJson(jsonBuilder.toString(), Account.class);
-      if (accRep.update_account(acc)){
+      if (accRep.update_account(acc)) {
         resp.setStatus(HttpServletResponse.SC_OK);
-      }
-      else
+      } else {
         resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      }
 
 
     }
 
-    if (action.equalsIgnoreCase("setRole")){
+    if (action.equalsIgnoreCase("setRole")) {
       String AccID = req.getParameter("account_id");
       String roleAccess = req.getParameter("role_access");
-      if (GAR.setRoleAccount(AccID,roleAccess)){
+      if (GAR.setRoleAccount(AccID, roleAccess)) {
         resp.setStatus(HttpServletResponse.SC_OK);
-      }
-      else
+      } else {
         resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      }
     }
 
   }
