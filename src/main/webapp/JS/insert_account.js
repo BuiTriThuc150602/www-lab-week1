@@ -53,8 +53,9 @@ btnSubmit.addEventListener("click", (even) => {
      };
     console.log(obj);
     let url =
-      "http://localhost:80/week01_lab_BuiTriThuc_20088361/ControllerServlet?action=insert_account";
+      "http://localhost:8080/week01_lab_BuiTriThuc_20088361/ControllerServlet?action=insert_account";
     fetch(url, {
+      mode: "no-cors",
       method: "POST",
       headers: {
         "Content-Type": "application/json",

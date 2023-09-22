@@ -41,7 +41,7 @@ window.onclick = (event) => {
 
 //url api
 let url =
-  "http://localhost:80/week01_lab_BuiTriThuc_20088361/ControllerServlet";
+  "http://localhost:8080/week01_lab_BuiTriThuc_20088361/ControllerServlet";
 
 // /get user name login
 let accountLogin = JSON.parse(localStorage.getItem("accLogin"));
