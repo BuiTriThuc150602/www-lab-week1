@@ -8,8 +8,7 @@ document.getElementById("submit").addEventListener("click", (even) => {
   let queryString = Object.keys(params)
     .map((key) => key + "=" + encodeURIComponent(params[key]))
     .join("&");
-  let apiUrl =
-    "http://localhost:8080/week01_lab_BuiTriThuc_20088361/ControllerServlet";
+  let apiUrl ="ControllerServlet";
   let urlWithParams = apiUrl + "?" + queryString;
   fetch(urlWithParams)
     .then((response) => {

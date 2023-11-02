@@ -41,7 +41,7 @@ window.onclick = (event) => {
 
 //url api
 let url =
-  "http://localhost:8080/week01_lab_BuiTriThuc_20088361/ControllerServlet";
+    "ControllerServlet";
 
 // /get user name login
 let accountLogin = JSON.parse(localStorage.getItem("accLogin"));
@@ -53,8 +53,8 @@ document.getElementById("btnLogout").addEventListener("click", () => {
 });
 
 fetch(url + "?action=getall")
-  .then((response) => response.json())
-  .then((data) =>
+.then((response) => response.json())
+.then((data) =>
     data.forEach((acc) => {
       let row = table.insertRow(-1);
 
@@ -73,7 +73,7 @@ fetch(url + "?action=getall")
       row.insertCell(4).innerHTML = acc.phone;
       row.insertCell(5).innerHTML = acc.status;
     })
-  );
+);
 
 document.getElementById("btnAdd").addEventListener("click", () => {
   window.location.href = "insert_account.html";
@@ -88,7 +88,7 @@ document.getElementById("btnUpdate").addEventListener("click", (even) => {
   let email = txtEmail.value;
   let phone = txtPhone.value;
   let status = txtStatus.value;
-  let objUpdate = { account_id, full_name, password, email, phone, status };
+  let objUpdate = {account_id, full_name, password, email, phone, status};
 
   let validObj = (objUpdate) => {
     if (objUpdate.id === "") {
@@ -117,7 +117,7 @@ document.getElementById("btnUpdate").addEventListener("click", (even) => {
       errorEmail.style.display = "block";
       return false;
     } else if (
-      /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(objUpdate.email) === false
+        /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(objUpdate.email) === false
     ) {
       errorEmail.innerHTML = "Email is invalid";
       errorEmail.style.display = "block";
@@ -130,7 +130,7 @@ document.getElementById("btnUpdate").addEventListener("click", (even) => {
       errorPhone.style.display = "block";
       return false;
     } else if (
-      /(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(objUpdate.phone) === false
+        /(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(objUpdate.phone) === false
     ) {
       errorPhone.innerHTML = "Phone is invalid";
       errorPhone.style.display = "block";
@@ -152,7 +152,7 @@ document.getElementById("btnUpdate").addEventListener("click", (even) => {
       action: "update",
     };
     let queryString = Object.keys(param).map(
-      (key) => key + "=" + encodeURIComponent(param[key])
+        (key) => key + "=" + encodeURIComponent(param[key])
     );
     fetch(url + "?" + queryString, {
       method: "POST",
@@ -196,8 +196,8 @@ document.getElementById("btnLogout").addEventListener("click", () => {
     account_id: accountLogin.account_id,
   };
   let queryString = Object.keys(params)
-    .map((key) => key + "=" + encodeURIComponent(params[key]))
-    .join("&");
+  .map((key) => key + "=" + encodeURIComponent(params[key]))
+  .join("&");
   fetch(url + "?" + queryString);
 });
 
@@ -210,14 +210,14 @@ document.getElementById("btnSetRole").addEventListener("click", (even) => {
     role_access: roleAccess.value,
   };
   let queryString = Object.keys(params)
-    .map((key) => key + "=" + encodeURIComponent(params[key]))
-    .join("&");
+  .map((key) => key + "=" + encodeURIComponent(params[key]))
+  .join("&");
   fetch(url + "?" + queryString, {
     method: "POST",
   }).then((response) => {
     if (response.ok) {
       alert(
-        "Set role " +
+          "Set role " +
           roleAccess.value +
           " success for account with id: " +
           id.value
